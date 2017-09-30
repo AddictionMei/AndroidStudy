@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -18,6 +20,12 @@ import java.util.List;
 public class CrimeListFragment  extends Fragment  {
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
+
+    @Override
+    public void onCreate( Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
@@ -36,6 +44,12 @@ public class CrimeListFragment  extends Fragment  {
     public void onResume() {
         super.onResume();
         updateUI();
+    }
+    //由FragmentManger负责调用
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_crime_list,menu);
     }
 
     private  void updateUI(){
@@ -76,7 +90,6 @@ public class CrimeListFragment  extends Fragment  {
 
         @Override
         public void onClick(View view) {
-           /* Toast.makeText(getActivity(),mCrime.getTitle()+"clicked!",Toast.LENGTH_SHORT).show();*/
           //启动CrimePagerActivity
             Intent intent=CrimePagerActivity.newIntent(getActivity(),mCrime.getId());
 
